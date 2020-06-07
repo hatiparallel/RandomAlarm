@@ -2,6 +2,7 @@ package com.parallel.hati.randomalarm
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +11,14 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import java.util.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class MainFragment : Fragment() {
+    private val args: TimeFragmentArgs by navArgs()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +31,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("MMM", "3")
+
         val listView = view.findViewById(R.id.time_list_view) as ListView
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, 8)
@@ -37,7 +42,10 @@ class MainFragment : Fragment() {
         listView.adapter = adapter
         listView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                val content = MainFragmentDirections.actionMainFragmentToTimeFragment(position)
+                val calendar = adapter.getItem(position)
+                val hour = calendar.get(Calendar.HOUR_OF_DAY)
+                val minute = calendar.get(Calendar.MINUTE)
+                val content = MainFragmentDirections.actionMainFragmentToTimeFragment(position, hour, minute)
                 findNavController().navigate(content)
             }
 

@@ -35,8 +35,8 @@ class TimeFragment : Fragment() {
 
         val timePicker = view.findViewById<TimePicker>(R.id.time_picker)
 
-        var hour = 8
-        var minute = 30
+        var hour = args.hour
+        var minute = args.minute
 
         val currentApiVersion = Build.VERSION.SDK_INT
         if (currentApiVersion >= Build.VERSION_CODES.M) {
@@ -59,7 +59,8 @@ class TimeFragment : Fragment() {
             val calendar : Calendar = Calendar.getInstance()
             calendar.set(Calendar.HOUR_OF_DAY, hour)
             calendar.set(Calendar.MINUTE, minute)
-            findNavController().navigate(R.id.action_TimeFragment_to_MainFragment)
+            val content = TimeFragmentDirections.actionTimeFragmentToMainFragment(hour, minute)
+            findNavController().navigate(content)
         }
     }
 }
