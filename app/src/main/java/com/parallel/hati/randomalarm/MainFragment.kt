@@ -35,8 +35,8 @@ class MainFragment : Fragment() {
 
         val listView = view.findViewById(R.id.time_list_view) as ListView
         val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 8)
-        calendar.set(Calendar.MINUTE, 30)
+        calendar.set(Calendar.HOUR_OF_DAY, args.hour)
+        calendar.set(Calendar.MINUTE, args.minute)
         val list : List<Calendar> = listOf(calendar)
         val adapter = MainAdapter(this.getContext()!!, list)
         listView.adapter = adapter
