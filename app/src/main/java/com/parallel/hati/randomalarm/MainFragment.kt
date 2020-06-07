@@ -32,8 +32,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Realm.init(this.getContext())
-        val mRealm = Realm.getDefaultInstance()
+        // Realm.init(this.getContext())
+        // val mRealm = Realm.getDefaultInstance()
 
         Log.d("MMM", "3")
 
