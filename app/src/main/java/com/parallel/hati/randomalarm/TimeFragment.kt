@@ -41,6 +41,8 @@ class TimeFragment : Fragment() {
             .build()
         mRealm = Realm.getInstance(realmConfig)
 
+        val alarm = mRealm.where(Alarm::class.java).equalTo("id", id).findFirst()
+
         val timePicker = view.findViewById<TimePicker>(R.id.time_picker)
 
         var hour = args.hour
@@ -64,9 +66,16 @@ class TimeFragment : Fragment() {
                 hour = timePicker.getCurrentHour();
                 minute = timePicker.getCurrentMinute();
             }
+
+            mRealm.executeTransaction {
+                alarm?.hour = hour
+                alarm?.minute = minute
+            }
+
             val calendar : Calendar = Calendar.getInstance()
             calendar.set(Calendar.HOUR_OF_DAY, hour)
             calendar.set(Calendar.MINUTE, minute)
+
             val content = TimeFragmentDirections.actionTimeFragmentToMainFragment(hour, minute)
             findNavController().navigate(content)
         }
