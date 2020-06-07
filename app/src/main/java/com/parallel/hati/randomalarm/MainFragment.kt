@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.RealmList
 import java.util.*
 
 /**
@@ -40,22 +41,32 @@ class MainFragment : Fragment() {
             .build()
         mRealm = Realm.getInstance(realmConfig)
 
-        Log.d("MMM", "3")
+        var alarms = mRealm.where(Alarm::class.java).findAll()
+
+        if (alarms.size < 1) {
+            mRealm.executeTransaction {
+                val alarm = mRealm.createObject(Alarm::class.java, 0)
+            }
+            // alarms = mRealm.where(Alarm::class.java).findAll()
+        }
 
         val listView = view.findViewById(R.id.time_list_view) as ListView
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, args.hour)
-        calendar.set(Calendar.MINUTE, args.minute)
-        val list : List<Calendar> = listOf(calendar)
-        val adapter = MainAdapter(this.getContext()!!, list)
+        val adapter = MainAdapter(this.getContext()!!, alarms)
         listView.adapter = adapter
         listView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                val calendar = adapter.getItem(position)
-                val hour = calendar.get(Calendar.HOUR_OF_DAY)
-                val minute = calendar.get(Calendar.MINUTE)
-                val content = MainFragmentDirections.actionMainFragmentToTimeFragment(position, hour, minute)
-                findNavController().navigate(content)
+                val alarm = adapter.getItem(position)
+                if (alarm != null) {
+                    var id = alarm.id
+                    val hour = alarm.hour
+                    val minute = alarm.minute
+                    val content = MainFragmentDirections.actionMainFragmentToTimeFragment(
+                        id,
+                        hour,
+                        minute
+                    )
+                    findNavController().navigate(content)
+                }
             }
 
         view.findViewById<Button>(R.id.button_first).setOnClickListener {

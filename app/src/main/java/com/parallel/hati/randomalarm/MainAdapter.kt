@@ -8,14 +8,16 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import io.realm.RealmList
+import io.realm.RealmResults
 import java.util.*
 
-class MainAdapter(context : Context, calendars : List<Calendar>) : BaseAdapter() {
+class MainAdapter(context : Context, alarms : RealmResults<Alarm>) : BaseAdapter() {
     private val mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    val calendars = calendars
+    val alarms = alarms
 
-    override fun getItem(position : Int) : Calendar {
-        return calendars[position]
+    override fun getItem(position : Int) : Alarm? {
+        return alarms[position]
     }
 
     override fun getItemId(position : Int) : Long {
@@ -23,7 +25,7 @@ class MainAdapter(context : Context, calendars : List<Calendar>) : BaseAdapter()
     }
 
     override fun getCount() : Int {
-        return calendars.size
+        return alarms.size
     }
 
     override public fun getView(position : Int, view : View?, parent : ViewGroup): View {
@@ -34,8 +36,8 @@ class MainAdapter(context : Context, calendars : List<Calendar>) : BaseAdapter()
 
         val item = this.getItem(position)
         if (item != null) {
-            val hour = item.get(Calendar.HOUR_OF_DAY)
-            val minute = item.get(Calendar.MINUTE)
+            val hour = item.hour
+            val minute = item.minute
             val shown : String = hour.toString() + " : " + minute.toString()
             view!!.findViewById<TextView>(R.id.time_view).setText(shown)
 

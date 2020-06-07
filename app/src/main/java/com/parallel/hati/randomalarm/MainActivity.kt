@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment)
-        val args = MainFragmentArgs(8, 30)
+        val args = MainFragmentArgs(7, 0)
         navController.setGraph(R.navigation.nav_graph, args.toBundle())
 
         fab.setOnClickListener { view ->

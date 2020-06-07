@@ -2,6 +2,7 @@ package com.parallel.hati.randomalarm
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +42,7 @@ class TimeFragment : Fragment() {
             .build()
         mRealm = Realm.getInstance(realmConfig)
 
-        val alarm = mRealm.where(Alarm::class.java).equalTo("id", id).findFirst()
+        val alarm = mRealm.where(Alarm::class.java).equalTo("id", args.id).findFirst()
 
         val timePicker = view.findViewById<TimePicker>(R.id.time_picker)
 
