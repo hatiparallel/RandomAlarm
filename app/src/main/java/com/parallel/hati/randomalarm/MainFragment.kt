@@ -18,7 +18,7 @@ import java.util.*
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class MainFragment : Fragment() {
-    private val args: TimeFragmentArgs by navArgs()
+    private val args: MainFragmentArgs by navArgs()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
