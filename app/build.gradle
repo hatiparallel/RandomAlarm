@@ -1,7 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
+// safe args
+apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+
+// realm
+apply plugin: "realm-android"
 
 android {
     compileSdkVersion 28

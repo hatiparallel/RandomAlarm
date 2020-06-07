@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import io.realm.Realm
 import java.util.*
 
 /**
@@ -30,6 +31,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Realm.init(this.getContext())
+        val mRealm = Realm.getDefaultInstance()
 
         Log.d("MMM", "3")
 
