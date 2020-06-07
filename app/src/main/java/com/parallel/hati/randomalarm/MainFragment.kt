@@ -13,6 +13,7 @@ import android.widget.ListView
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import io.realm.Realm
+import io.realm.RealmConfiguration
 import java.util.*
 
 /**
@@ -20,6 +21,7 @@ import java.util.*
  */
 class MainFragment : Fragment() {
     private val args: MainFragmentArgs by navArgs()
+    private lateinit var mRealm : Realm
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -32,8 +34,11 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Realm.init(this.getContext())
-        // val mRealm = Realm.getDefaultInstance()
+        Realm.init(this.getContext())
+        val realmConfig = RealmConfiguration.Builder()
+            .deleteRealmIfMigrationNeeded()
+            .build()
+        mRealm = Realm.getInstance(realmConfig)
 
         Log.d("MMM", "3")
 
@@ -56,5 +61,10 @@ class MainFragment : Fragment() {
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_MainFragment_to_TimeFragment)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mRealm.close()
     }
 }

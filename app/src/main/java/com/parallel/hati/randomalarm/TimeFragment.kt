@@ -11,6 +11,8 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import java.util.*
 
 /**
@@ -18,6 +20,7 @@ import java.util.*
  */
 class TimeFragment : Fragment() {
     private val args: TimeFragmentArgs by navArgs()
+    private lateinit var mRealm : Realm
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +35,11 @@ class TimeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val realmConfig = RealmConfiguration.Builder()
+            .deleteRealmIfMigrationNeeded()
+            .build()
+        mRealm = Realm.getInstance(realmConfig)
 
         val timePicker = view.findViewById<TimePicker>(R.id.time_picker)
 
@@ -62,5 +70,10 @@ class TimeFragment : Fragment() {
             val content = TimeFragmentDirections.actionTimeFragmentToMainFragment(hour, minute)
             findNavController().navigate(content)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mRealm.close()
     }
 }
