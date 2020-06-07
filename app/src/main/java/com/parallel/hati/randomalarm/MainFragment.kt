@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.fragment.findNavController
+import java.util.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -28,11 +29,16 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val listView = view.findViewById(R.id.time_list_view) as ListView
-        val adapter = MainAdapter(this.getContext()!!, listOf())
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, 8)
+        calendar.set(Calendar.MINUTE, 30)
+        val list : List<Calendar> = listOf(calendar)
+        val adapter = MainAdapter(this.getContext()!!, list)
         listView.adapter = adapter
         listView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                return@OnItemClickListener
+                val content = MainFragmentDirections.actionMainFragmentToTimeFragment(position)
+                findNavController().navigate(content)
             }
 
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
