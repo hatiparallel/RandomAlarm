@@ -39,10 +39,14 @@ class MainAdapter(context : Context, alarms : RealmResults<Alarm>) : BaseAdapter
             val hour = item.hour
             val minute = item.minute
             val shown : String = hour.toString() + " : " + minute.toString()
-            view!!.findViewById<TextView>(R.id.time_view).setText(shown)
+            view!!.findViewById<TextView>(R.id.time_button).setText(shown)
 
             view!!.findViewById<Button>(R.id.onoff_button).setOnClickListener {
                 (parent as ListView).performItemClick(view, position, R.id.onoff_button.toLong())
+            }
+
+            view!!.findViewById<Button>(R.id.time_button).setOnClickListener {
+                (parent as ListView).performItemClick(view, position, R.id.time_button.toLong())
             }
         }
         return view!!

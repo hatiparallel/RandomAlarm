@@ -56,11 +56,19 @@
             app:destination="@id/MainFragment" />
 
         <action
-            android:id="@+id/action_SettinsFragment_to_TimeFragment"
+            android:id="@+id/action_SettingsFragment_to_TimeFragment"
             app:destination="@id/TimeFragment" />
 
         <argument
             android:name="id"
+            app:argType="integer" />
+
+        <argument
+            android:name="hour"
+            app:argType="integer" />
+
+        <argument
+            android:name="minute"
             app:argType="integer" />
     </fragment>
 </navigation>

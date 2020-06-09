@@ -13,15 +13,16 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/on"
+        android:text="settings"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/time_view"
+    <Button
+        android:id="@+id/time_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:background="#FFFFFF"
         android:text="@string/default_time"
         android:textSize="24sp"/>
 

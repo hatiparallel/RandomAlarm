@@ -15,10 +15,17 @@
         android:layout_gravity="center_horizontal" />
 
     <Button
-        android:id="@+id/button_second"
+        android:id="@+id/button_times_to_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/previous"
+        android:text="Main"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/button_times_to_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

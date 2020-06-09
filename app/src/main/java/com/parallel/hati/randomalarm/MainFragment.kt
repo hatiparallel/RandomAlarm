@@ -55,22 +55,31 @@ class MainFragment : Fragment() {
         listView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val alarm = adapter.getItem(position)
-                if (alarm != null) {
-                    var id = alarm.id
-                    val hour = alarm.hour
-                    val minute = alarm.minute
-                    val content = MainFragmentDirections.actionMainFragmentToTimeFragment(
-                        id,
-                        hour,
-                        minute
-                    )
-                    findNavController().navigate(content)
+                when(id) {
+                    R.id.onoff_button.toLong() ->
+                        if (alarm != null) {
+                            val alarm_id = alarm.id
+                            val hour = alarm.hour
+                            val minute = alarm.minute
+                            val content = MainFragmentDirections.actionMainFragmentToTimeFragment(
+                                alarm_id,
+                                hour,
+                                minute
+                            )
+                            findNavController().navigate(content)
+                        }
+                    R.id.time_button.toLong() ->
+                        if (alarm != null) {
+                            val alarm_id = alarm.id
+                            val content = MainFragmentDirections.actionMainFragmentToSettingsFragment(
+                                alarm_id,
+                                alarm.hour,
+                                alarm.minute
+                            )
+                            findNavController().navigate(content)
+                        }
                 }
             }
-
-        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-            findNavController().navigate(R.id.action_MainFragment_to_TimeFragment)
-        }
     }
 
     override fun onDestroy() {

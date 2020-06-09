@@ -63,7 +63,7 @@ class TimeFragment : Fragment() {
             timePicker.setCurrentMinute(minute);
         }
 
-        view.findViewById<Button>(R.id.button_second).setOnClickListener {
+        view.findViewById<Button>(R.id.button_times_to_main).setOnClickListener {
             if (currentApiVersion >= Build.VERSION_CODES.M) {
                 hour = timePicker.getHour();
                 minute = timePicker.getMinute();
@@ -114,6 +114,60 @@ class TimeFragment : Fragment() {
             }
 
             val content = TimeFragmentDirections.actionTimeFragmentToMainFragment()
+            findNavController().navigate(content)
+        }
+
+        view.findViewById<Button>(R.id.button_times_to_settings).setOnClickListener {
+            if (currentApiVersion >= Build.VERSION_CODES.M) {
+                hour = timePicker.getHour();
+                minute = timePicker.getMinute();
+
+            } else {
+                hour = timePicker.getCurrentHour();
+                minute = timePicker.getCurrentMinute();
+            }
+
+            mRealm.executeTransaction {
+                alarm?.hour = hour
+                alarm?.minute = minute
+            }
+
+            val calendar : Calendar = Calendar.getInstance()
+            calendar.setTimeInMillis(System.currentTimeMillis())
+            Log.d("MMM", calendar.get(Calendar.DATE).toString())
+            Log.d("MMM", calendar.get(Calendar.MONTH).toString())
+            Log.d("MMM", calendar.get(Calendar.YEAR).toString())
+            Log.d("MMM", calendar.get(Calendar.HOUR_OF_DAY).toString())
+            Log.d("MMM", calendar.get(Calendar.MINUTE).toString())
+            calendar.set(Calendar.HOUR_OF_DAY, hour)
+            calendar.set(Calendar.MINUTE, minute)
+            calendar.set(Calendar.SECOND, 0)
+            if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+                calendar.add(Calendar.DATE, 1)
+            }
+            Log.d("MMM", calendar.get(Calendar.DATE).toString())
+            Log.d("MMM", calendar.get(Calendar.MONTH).toString())
+            Log.d("MMM", calendar.get(Calendar.YEAR).toString())
+            Log.d("MMM", calendar.get(Calendar.HOUR_OF_DAY).toString())
+            Log.d("MMM", calendar.get(Calendar.MINUTE).toString())
+
+            val intent = Intent(this.getContext(), AlarmReceiver::class.java)
+            val pending = PendingIntent.getBroadcast(this.getContext(), 0, intent, 0)
+            val manager = this.getContext()!!.getSystemService(ALARM_SERVICE) as AlarmManager
+            Log.d("MMM", manager.toString())
+            // manager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                manager.setAlarmClock(
+                    AlarmClockInfo(calendar.timeInMillis, null),
+                    pending
+                )
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                manager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pending)
+            } else {
+                manager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pending)
+            }
+
+            val content = TimeFragmentDirections.actionTimeFragmentToSettingsFragment(args.id, args.hour, args.minute)
             findNavController().navigate(content)
         }
     }
