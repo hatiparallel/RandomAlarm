@@ -46,7 +46,7 @@ class SettingsFragment : Fragment() {
         val alarm = mRealm.where(Alarm::class.java).equalTo("id", args.id).findFirst()
 
         view.findViewById<Button>(R.id.back_button).setOnClickListener {
-            val content = SettingsFragmentDirections.actionSettingsFragmentToMainFragment(0, 0)
+            val content = SettingsFragmentDirections.actionSettingsFragmentToMainFragment()
             findNavController().navigate(content)
         }
     }

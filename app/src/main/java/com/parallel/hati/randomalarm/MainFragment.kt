@@ -21,7 +21,6 @@ import java.util.*
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class MainFragment : Fragment() {
-    private val args: MainFragmentArgs by navArgs()
     private lateinit var mRealm : Realm
 
     override fun onCreateView(

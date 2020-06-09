@@ -17,8 +17,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment)
-        val args = MainFragmentArgs(7, 0)
-        navController.setGraph(R.navigation.nav_graph, args.toBundle())
+        navController.setGraph(R.navigation.nav_graph)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

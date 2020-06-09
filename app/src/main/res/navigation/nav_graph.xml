@@ -18,13 +18,6 @@
         <action
             android:id="@+id/action_MainFragment_to_SettingsFragment"
             app:destination="@id/SettingsFragment" />
-
-        <argument
-            android:name="hour"
-            app:argType="integer" />
-        <argument
-            android:name="minute"
-            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/TimeFragment"

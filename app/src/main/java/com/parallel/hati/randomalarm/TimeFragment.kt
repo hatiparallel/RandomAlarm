@@ -113,7 +113,7 @@ class TimeFragment : Fragment() {
                 manager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pending)
             }
 
-            val content = TimeFragmentDirections.actionTimeFragmentToMainFragment(hour, minute)
+            val content = TimeFragmentDirections.actionTimeFragmentToMainFragment()
             findNavController().navigate(content)
         }
     }
