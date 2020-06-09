@@ -15,6 +15,10 @@
             android:id="@+id/action_MainFragment_to_TimeFragment"
             app:destination="@id/TimeFragment" />
 
+        <action
+            android:id="@+id/action_MainFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment" />
+
         <argument
             android:name="hour"
             app:argType="integer" />
@@ -32,6 +36,10 @@
             android:id="@+id/action_TimeFragment_to_MainFragment"
             app:destination="@id/MainFragment" />
 
+        <action
+            android:id="@+id/action_TimeFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment" />
+
         <argument
             android:name="id"
             app:argType="integer" />
@@ -42,6 +50,24 @@
 
         <argument
             android:name="minute"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="com.parallel.hati.randomalarm.SettingsFragment"
+        android:label="Settings Fragment"
+        tools:layout="@layout/fragment_settings" >
+
+        <action
+            android:id="@+id/action_SettingsFragment_to_MainFragment"
+            app:destination="@id/MainFragment" />
+
+        <action
+            android:id="@+id/action_SettinsFragment_to_TimeFragment"
+            app:destination="@id/TimeFragment" />
+
+        <argument
+            android:name="id"
             app:argType="integer" />
     </fragment>
 </navigation>
