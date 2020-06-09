@@ -36,9 +36,15 @@ class MainAdapter(context : Context, alarms : RealmResults<Alarm>) : BaseAdapter
 
         val item = this.getItem(position)
         if (item != null) {
-            val hour = item.hour
-            val minute = item.minute
-            val shown : String = hour.toString() + " : " + minute.toString()
+            var hour_string = item.hour.toString()
+            var minute_string = item.minute.toString()
+            if (hour_string.length == 1) {
+                hour_string = "0" + hour_string
+            }
+            if (minute_string.length == 1) {
+                minute_string = "0" + minute_string
+            }
+            val shown : String = hour_string + " : " + minute_string
             view!!.findViewById<TextView>(R.id.time_button).setText(shown)
 
             view!!.findViewById<Button>(R.id.onoff_button).setOnClickListener {
