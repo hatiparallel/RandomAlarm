@@ -56,7 +56,7 @@ class MainFragment : Fragment() {
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val alarm = adapter.getItem(position)
                 when(id) {
-                    R.id.onoff_button.toLong() ->
+                    R.id.button_time.toLong() ->
                         if (alarm != null) {
                             val alarm_id = alarm.id
                             val hour = alarm.hour
@@ -68,7 +68,7 @@ class MainFragment : Fragment() {
                             )
                             findNavController().navigate(content)
                         }
-                    R.id.time_button.toLong() ->
+                    R.id.button_settings.toLong() ->
                         if (alarm != null) {
                             val alarm_id = alarm.id
                             val content = MainFragmentDirections.actionMainFragmentToSettingsFragment(

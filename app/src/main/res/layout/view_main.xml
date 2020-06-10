@@ -8,16 +8,16 @@
     tools:context=".MainFragment">
 
     <Button
-        android:id="@+id/onoff_button"
+        android:id="@+id/button_onoff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/settings"
+        android:text="@string/on"
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/time_button"
+        android:id="@+id/button_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -25,5 +25,14 @@
         android:background="#FFFFFF"
         android:text="@string/default_time"
         android:textSize="24sp"/>
+
+    <Button
+        android:id="@+id/button_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/settings"
+        android:textSize="24sp" />
 
 </LinearLayout>
