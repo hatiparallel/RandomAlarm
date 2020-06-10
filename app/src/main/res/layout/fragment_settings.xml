@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="audio" />
+        android:text="@string/audio" />
 
     <Button
         android:id="@+id/button_settings_to_main"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="main" />
+        android:text="@string/main" />
 
     <Button
         android:id="@+id/button_settings_to_time"
@@ -28,6 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="time" />
+        android:text="@string/time" />
 
 </LinearLayout>
