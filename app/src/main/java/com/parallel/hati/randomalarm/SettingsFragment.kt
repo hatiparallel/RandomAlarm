@@ -1,5 +1,6 @@
 package com.parallel.hati.randomalarm
 
+import android.app.Activity
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -24,6 +25,8 @@ class SettingsFragment : Fragment() {
     private val args: SettingsFragmentArgs by navArgs()
     private lateinit var mRealm : Realm
 
+    private val audioRequestCode = 283
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +48,16 @@ class SettingsFragment : Fragment() {
 
         val alarm = mRealm.where(Alarm::class.java).equalTo("id", args.id).findFirst()
 
+        view.findViewById<Button>(R.id.button_add_audio).setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.setType("audio/*")
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            // todo : resolve activity
+            // todo : open multiple files
+            startActivityForResult(intent, audioRequestCode)
+        }
+
         view.findViewById<Button>(R.id.button_settings_to_main).setOnClickListener {
             val content = SettingsFragmentDirections.actionSettingsFragmentToMainFragment()
             findNavController().navigate(content)
@@ -53,6 +66,23 @@ class SettingsFragment : Fragment() {
         view.findViewById<Button>(R.id.button_settings_to_time).setOnClickListener {
             val content = SettingsFragmentDirections.actionSettingsFragmentToTimeFragment(args.id, args.hour, args.minute)
             findNavController().navigate(content)
+        }
+    }
+
+    override fun onActivityResult(requestCode : Int, resultCode : Int, data : Intent?) {
+        if (requestCode == audioRequestCode && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                if (data.getData() != null) {
+                    val uri = data.getData()
+                    Log.d("AUD", uri!!.toString())
+                } else if (data.getClipData() != null) {
+                    val cd = data.getClipData()
+                    for (i in 0..cd!!.getItemCount()-1) {
+                        val uri = cd.getItemAt(i).getUri()
+                        Log.d("AUD", uri!!.toString())
+                    }
+                }
+            }
         }
     }
 
