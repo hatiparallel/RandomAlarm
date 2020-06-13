@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -118,6 +119,10 @@ class TimeFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.button_times_to_settings).setOnClickListener {
+            if (alarm?.musiclist != null && alarm.musiclist.size < 1) {
+                Toast.makeText(this.getContext(), "no music", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             if (currentApiVersion >= Build.VERSION_CODES.M) {
                 hour = timePicker.getHour();
                 minute = timePicker.getMinute();
