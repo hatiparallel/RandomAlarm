@@ -9,7 +9,7 @@ import android.widget.Toast
 class AlarmReceiver() : BroadcastReceiver() {
     override fun onReceive(context : Context, intent : Intent) {
         Log.d("MMM", "received")
-        Toast.makeText(context,"Received",Toast.LENGTH_LONG).show()
+        Toast.makeText(context,"Received", Toast.LENGTH_LONG).show()
         val wakeupIntent = Intent(context, WakeupActivity::class.java)
         wakeupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(wakeupIntent)
