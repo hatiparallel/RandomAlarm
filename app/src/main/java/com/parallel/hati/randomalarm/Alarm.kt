@@ -9,5 +9,5 @@ open class Alarm : RealmObject() {
     var id : Int = 0
     var hour : Int = 8
     var minute : Int = 30
-    var musiclist : RealmList<Music>? = null
+    var musiclist : RealmList<Music> = RealmList()
 }

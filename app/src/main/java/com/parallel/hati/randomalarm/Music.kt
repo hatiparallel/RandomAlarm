@@ -6,5 +6,5 @@ import io.realm.annotations.PrimaryKey
 open class Music : RealmObject() {
     @PrimaryKey
     var id : Int = 0
-    var path : String = ""
+    var uri : String = ""
 }

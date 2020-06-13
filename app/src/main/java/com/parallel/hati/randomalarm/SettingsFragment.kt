@@ -75,6 +75,14 @@ class SettingsFragment : Fragment() {
                 if (data.getData() != null) {
                     val uri = data.getData()
                     Log.d("AUD", uri!!.toString())
+                    val music_max_id = mRealm.where(Music::class.java).max("id") ?: -1
+                    val music_id = music_max_id.toLong() + 1
+                    val alarm = mRealm.where(Alarm::class.java).equalTo("id", args.id).findFirst()
+                    mRealm.executeTransaction {
+                        val music = mRealm.createObject(Music::class.java, music_id)
+                        music.uri = uri!!.toString()
+                        alarm?.musiclist?.add(music)
+                    }
                 } else if (data.getClipData() != null) {
                     val cd = data.getClipData()
                     for (i in 0..cd!!.getItemCount()-1) {
